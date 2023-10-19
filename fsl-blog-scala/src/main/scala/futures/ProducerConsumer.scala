@@ -10,7 +10,7 @@ import scala.concurrent.Future
 
 object ProducerConsumer {
 
-  implicit val executionContext = ExecutionContext.fromExecutor(Executors.newFixedThreadPool(20))
+  given executionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newFixedThreadPool(20))
 
   def getRandomTime: Int = Random.between(500, 1001)
 
@@ -19,7 +19,7 @@ object ProducerConsumer {
   }
 
   @tailrec
-  def produce(id: Long, queue: BlockingQueue[String]): Unit = {
+  def produce(id: Long, queue: BlockingQueue[String]): Unit =
     Thread.sleep(getRandomTime)
 
     val value = RandomStringUtils.randomAlphanumeric(10)
@@ -27,28 +27,25 @@ object ProducerConsumer {
     println("producer " + id + " producing " + value)
 
     produce(id, queue)
-  }
 
   def consumer(id: Long, queue: BlockingQueue[String]): Future[Unit] = Future {
     consume(id, queue)
   }
 
   @tailrec
-  def consume(id: Long, queue: BlockingQueue[String]): Unit = {
+  def consume(id: Long, queue: BlockingQueue[String]): Unit =
     Thread.sleep(getRandomTime)
 
     val value = queue.take()
     println("consumer " + id + " consuming value " + value)
 
     consume(id, queue)
-  }
 
-  def main(args: Array[String]): Unit = {
+  def main(args: Array[String]): Unit =
     val queue =  new LinkedBlockingQueue[String]()
 
     List.range(1, 11).foreach(producer(_, queue))
 
     List.range(1, 11).foreach(consumer(_, queue))
-  }
 
 }
