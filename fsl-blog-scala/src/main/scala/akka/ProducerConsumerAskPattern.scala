@@ -103,5 +103,6 @@ object ProducerConsumerAskPattern {
         consumers ! Consume()
       }
     }
+  end main
 
 }

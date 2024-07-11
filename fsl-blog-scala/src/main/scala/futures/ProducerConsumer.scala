@@ -41,7 +41,7 @@ object ProducerConsumer {
 
     consume(id, queue)
 
-  def main(args: Array[String]): Unit =
+  @main def main(): Unit =
     val queue =  new LinkedBlockingQueue[String]()
 
     List.range(1, 11).foreach(producer(_, queue))

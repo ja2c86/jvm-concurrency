@@ -102,5 +102,6 @@ object ProducerConsumer {
         consumers ! Consume()
       }
     }
+  end main
 
 }

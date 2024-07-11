@@ -1,7 +1,7 @@
 
 # Concurrency in the JVM
 
-This repository contains the examples of the following article [Article](https://www.fullstacklabs.co/blog/six-ways-to-handle-concurrency-in-the-jvm).
+This repository contains the examples of the following article [Article](https://www.fullstack.com/labs/resources/blog/six-ways-to-handle-concurrency-in-the-jvm).
 
 Grouped in the following way:
 

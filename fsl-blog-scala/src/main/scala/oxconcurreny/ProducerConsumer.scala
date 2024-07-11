@@ -38,13 +38,14 @@ object ProducerConsumer {
 
     consume(id, queue)
 
-  def main(args: Array[String]): Unit =
+  @main def main(): Unit =
     supervised {
-      val queue = Channel[String](Int.MaxValue)
+      val queue = Channel.unlimited[String]
 
-      List.range(1, 11).map(producer(_, queue)).foreach(_.join())
+      val producers = List.range(1, 11).map(producer(_, queue))
+      val consumers = List.range(1, 11).map(consumer(_, queue))
 
-      List.range(1, 11).map(consumer(_, queue)).foreach(_.join())
+      (producers ++ consumers).foreach(_.join())
     }
 
 }
